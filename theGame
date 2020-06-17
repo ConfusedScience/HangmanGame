@@ -1,0 +1,114 @@
+import random
+words = ["act", "adjustment", "advertisement", "agreement", "air","amount", "amusement", "animal", "answer", "apparatus",
+         "approval", "argument", "art", "attack", "attempt", "attention", "attraction", "authority", "back", "balance",
+         "base", "behavior", "belief", "birth", "bit", "bite", "blood", "blow", "body", "brass", "bread", "breath",
+         "brother","building", "burn", "burst", "business", "butter", "canvas", "care", "cause", "chalk", "chance",
+         "change", "cloth", "coal", "color", "comfort", "committee", "company", "comparison", "competition", "condition",
+         "connection", "control", "cook", "copper", "copy", "cork", "copy", "cough", "country", "cover", "crack", "credit",
+         "crime", "crush", "cry", "current", "curve", "damage", "danger", "daughter", "day", "death", "debt", "decision",
+         "degree", "design", "desire", "destruction", "detail", "development", "digestion", "direction", "discovery",
+         "discussion", "disease", "disgust", "distance", "distribution", "division", "doubt", "drink", "driving", "dust",
+         "earth","edge", "education", "effect", "enderror", "eventexample","exchange", "existence", "expansion",
+         "experience", "expert", "fact", "fall", "family", "father", "fear", "feeling", "fiction", "field", "fight", "fire",
+         "flame", "flight", "flower", "fold","food", "force","form", "friend", "front", "fruit", "glass", "gold",
+         "government", "grain", "grass", "grip", "group", "growth", "guide", "harbor", "harmony", "hate", "hearing",
+         "heat", "help", "history", "hole", "hope", "hour", "humor", "ice", "idea", "impulse", "increase", "industry",
+         "ink", "insect", "instrument", "insurance", "interest", "invention", "iron", "jelly", "join", "journey", "judge",
+         "jump", "kick", "kiss", "knowledge", "land", "language", "laugh", "low", "lead", "learning", "leather", "letter",
+         "level", "lift", "light", "limit", "linen", "liquid", "list", "look", "loss", "love", "machine", "man", "manager",
+         "mark", "market", "mass", "meal", "measure", "meat", "meeting", "memory", "metal", "middle", "milk", "mind",
+         "mine", "minute", "mist", "money", "month", "morning", "mother", "motion", "mountain", "move", "music", "name",
+         "nation", "need", "news", "night", "noise", "note", "number", "observation", "offer", "oil", "operation", "opinion",
+         "order", "organization", "ornament", "owner", "page", "pain", "paint", "paper", "part", "paste", "payment",
+         "peace", "person", "place", "plant", "play", "pleasure", "point", "poison", "polish", "porter", "position",
+         "powder", "power", "price", "print", "process", "produce", "profit", "property", "prose", "protest", "pull",
+         "punishment", "purpose" "push", "quality", "question", "rain", "range", "rate", "ray", "reaction", "reading",
+         "reason", "record", "regret", "relation", "religion", "representative", "request", "respect", "rest", "reward",
+         "rhythm", "rice", "river", "road", "roll", "room", "rub", "rule", "run", "salt", "sand", "scale", "science",
+         "sea", "seat", "secretary", "selection", "self", "sense", "servant", "sex", "shade", "shake","shame", "shock",
+         "side", "sign", "silk", "silver", "sister", "size", "sky", "sleeps", "lip", "slope", "smash", "smell", "smile",
+         "smoke", "sneeze", "snow", "soap", "society", "son", "song", "sort", "sound", "soup", "space", "stage", "start",
+         "statement", "steam", "steel", "step", "stitch", "stone", "stop", "story", "stretch", "structure", "substance",
+         "sugar", "suggestion", "summer", "support", "surprise", "swim", "system", "talk", "taste", "tax", "teaching",
+         "tendency", "test", "theory", "thing", "thought", "thunder", "time", "tin", "top", "touch", "trade", "transport",
+         "trick", "trouble", "turn", "twist", "unit", "use", "value", "verse", "vessel", "view", "voice", "walk", "war",
+         "wash", "waste", "water", "wave", "wax", "way", "weather", "week", "weight", "wind", "wine", "winter", "woman",
+         "wood", "wool", "word", "work", "wound", "writing", "year"]
+
+
+
+
+
+
+word = random.choice(words)
+joined_string = ""
+letter_count = len(word)
+print("-" * letter_count)
+letter_index = []
+underscore_word_list = []
+x = 1
+for asd in word:
+    underscore_word_list.append(str(x))
+    x += 1
+guesses = letter_count + 5
+while guesses > 0:
+    letter_guess = input("Letter: ")
+    letter_guess_length = len(letter_guess)
+    letter_guess_type = letter_guess.isalpha()
+    if letter_guess_length == 1 and letter_guess_type:
+
+
+        letter_index = []
+        if letter_guess in word:
+            letter_count_in_word = word.count(letter_guess)
+            if letter_count_in_word == 1:
+                i = word.index(letter_guess) + 1
+                letter_index.append(i)
+            else:
+                last_index = 0
+                while letter_count_in_word > 0:
+                    i = word.index(letter_guess, last_index, letter_count) + 1
+                    letter_index.append(i)
+                    last_index = i
+                    letter_count_in_word -= 1
+            for index_output in letter_index:
+                underscore_word_list.insert(index_output - 1, letter_guess)
+                del underscore_word_list[index_output]
+            empty_string = ""
+            underscore_word_list_removing_ints = []
+            for cancelling_intergers in underscore_word_list:
+                if cancelling_intergers.isdigit():
+                    underscore_word_list_removing_ints.append(" ")
+                else:
+                    underscore_word_list_removing_ints.append(cancelling_intergers)
+
+            joined_string = empty_string.join(underscore_word_list_removing_ints)
+            print(joined_string)
+            print("-" * letter_count)
+            if joined_string == word:
+                print("Congrats You have guessed the word!")
+                break
+            else:
+                pass
+        else:
+            guesses -= 1
+            print(f"{letter_guess} not in word. {guesses} guesses left")
+            print(joined_string)
+            print("-" * letter_count)
+
+    else:
+        print("Wrong input, please enter only a single letter that is in the alphabet")
+        print(joined_string)
+        print("-" * letter_count)
+
+else:
+    print(f"You have no more guesses. {word} was the right word. Try again")
+    print("""
+           _____
+           |    |
+           |    o
+           |  ||||
+           |   ||
+           |____
+
+           """)
